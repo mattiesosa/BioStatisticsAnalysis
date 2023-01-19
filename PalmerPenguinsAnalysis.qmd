@@ -28,5 +28,153 @@ penguins %>%
   head(2) %>%
   kable() %>% 
   kable_styling(c("striped", "hover"))
+  
+```
 
+## About Our Data
+
+The data we are working with is a data set on Penguins, which includes 8 features measured on 44 penguins. The features included are physiological features (like bill length, bill depth, flipper length, body mass, etc) as well as other features like the year that the penguin was observed, the island the penguin was observed on, the sex of the penguin, and the species of the penguin.
+
+## Interesting Questions to Ask
+
+-   What is the average flipper length? What about for each species?
+
+-   Are there more male or female penguins? What about per island or species?
+
+-   What is the average body mass? What about by island? By species? By sex?
+
+-   What is the ratio of bill length to bill depth for a penguin? What is the overall average of this metric? Does it change by species, sex, or island?
+
+-   Does average body mass change by year?
+
+    ## Data Manipulation Tools and Strategies
+
+    We can look at individual columns in a data set or subsets of columns in a data set. For example, if we are only interested in flipper length and species, we can `select()` those columns.
+
+    ```{r}
+    penguins %>%
+      count(island)
+    ```
+
+```{r}
+penguins %>%
+  count(island, species) %>%
+  pivot_wider(names_from = species, values_from = n, values_fill = 0) %>%
+  kable() %>%
+  kable_styling(bootstrap_options = c("hover", "striped"))
+  
+```
+
+## Answering Our Questions
+
+Most of our questions involve summarizing data, and perhaps summarizing over groups. We can summarize data using the `summarize()` function, and group data using `group_by()`.
+
+Let's find the average flipper length.
+
+```{r}
+penguins %>% #average for all species
+  summarize(avg_flipper_length = mean(flipper_length_mm))
+
+penguins %>% #single species avg length
+  filter(species == "Gentoo") %>%
+  summarize(avg_flipper_length = mean(flipper_length_mm))
+
+penguins %>% #average separated by species (grouped average)
+  group_by(species) %>%
+  summarize(avg_flipper_length = mean(flipper_length_mm))
+```
+
+How many of each species do we have?
+
+```{r}
+penguins %>%
+  count(sex)
+```
+
+We can use `mutate()` to add new columns to our data set.
+
+```{r}
+#To make a permanent change, we need to store the results of our manipulations
+penguins_with_ratio <- penguins %>%
+  mutate(bill_ltd_ratio = bill_length_mm / bill_depth_mm)
+
+#Average Ratio
+penguins %>%
+  mutate(bill_ltd_ratio = bill_length_mm / bill_depth_mm) %>%
+  summarize(mean_bill_ltd_ratio = mean(bill_ltd_ratio),
+            median_bill_ltd_ratio = median(bill_ltd_ratio))
+```
+
+```{r}
+penguins %>%
+  summarize(mean_bill_length_mm = mean(bill_length_mm, na.rm = TRUE),
+  min_bill_length = min(bill_length_mm, na.rm = TRUE),
+  first_quartile_bill_length = quantile(bill_length_mm, 0.25, na.rm = TRUE),
+  median_bill_length = median(bill_length_mm, na.rm = TRUE), 
+  mean_bill_length_mm = mean(bill_length_mm, na.rm = TRUE), third_quartile_bill_length = quantile(bill_length_mm, 0.75, na.rm = TRUE),
+  standard_deviation_bill_length = sd(bill_length_mm, na.rm = TRUE)) %>%
+  pivot_longer(cols = everything())
+
+```
+
+Average body mass per year
+
+```{r}
+penguins %>%
+  group_by(year) %>%
+  summarize(mean_body_mass = mean(body_mass_g))
+```
+
+## Data Visualization
+
+-   What is the distribution of penguin flipper lengths?
+
+-   What is the distribution of penguin species?
+
+-   Does the distribution of flipper length depend on the species of penguin?
+
+```{r}
+penguins %>%
+  ggplot() +
+  geom_bar(mapping = aes(x = species)) +
+  labs(title ="Counts of Penguin Species", x = "Species", y = "Count")
+```
+
+```{r}
+penguins %>%
+  ggplot() +
+  geom_histogram(mapping = aes(x = bill_length_mm), color = "white", fill = "blue") +
+  labs(title ="Distribution of Bill Lengths", x = "Bill Length (mm)", y = "Count")
+```
+
+```{r}
+penguins %>%
+  ggplot() +
+  geom_histogram( aes(x = flipper_length_mm),
+                  bins = 15,
+                  fill = "forestgreen",
+                    color = "black") +
+  labs(title = "Distribution of Flipper Length (mm)",
+       subtitle = "Mean in Black, Median in Purple",
+       y = "", x = "Flipper Length (mm)") +
+    geom_vline(aes(xintercept = mean(flipper_length_mm)), lwd = 2, lty = "dashed") +
+    geom_vline(aes(xintercept = median(flipper_length_mm)), lwd = 2, lty = "dotted", color = "purple") 
+```
+
+We will now look at the distribution of species.
+
+```{r}
+penguins %>%
+  ggplot() +
+  geom_bar(mapping = aes(x = species), color ="black", fill="blue") +
+  labs(title = "Counts of Penguin Species", x = "Species", y = "Count")
+```
+
+Let's make a scatter plot to see if bill length is correlated with bill depth.
+
+```{r}
+penguins %>%
+  ggplot() +
+  geom_point(aes(x =bill_length_mm, y = bill_depth_mm, color = species)) +
+  geom_smooth(aes(x =bill_length_mm, y = bill_depth_mm, color = species), method = "lm")
 ```
