@@ -215,6 +215,10 @@ penguins %>%
 :::
 
 
+The first graph is showing the number of penguins that inhabit each island. Clearly, the data is not accurate because it is showing that there are only 3 penguins in Dream and 36 penguins in Biscoe.
+
+The second graph goes a step further than the first and shows the number of penguins in each species on each of the islands. We have such little data that the graphs do not seem entirely accurate.
+
 ## Answering Our Questions
 
 Most of our questions involve summarizing data, and perhaps summarizing over groups. We can summarize data using the `summarize()` function, and group data using `group_by()`.
@@ -272,6 +276,8 @@ penguins %>% #average separated by species (grouped average)
 :::
 
 
+This graph displays the average flipper length for each species (in mm). There is a 30mm difference between the longest and shortest average flipper length among the species.
+
 How many of each species do we have?
 
 
@@ -293,6 +299,8 @@ penguins %>%
 :::
 :::
 
+
+This graph shows the number of males and females among the penguins (the number of males+females equals the same number when the number of different species among the islands are counted).
 
 We can use `mutate()` to add new columns to our data set.
 
@@ -350,6 +358,10 @@ penguins %>%
 :::
 
 
+The first graph shows our results from computing the mean and median for average bill length among the penguins.
+
+The second graph gave the values for the mean bill length, min bill length, median bill length, third quartile bill length and standard deviation.
+
 Average body mass per year
 
 
@@ -374,7 +386,9 @@ penguins %>%
 :::
 
 
-## Data Visualization
+This graph displays the mean body mass for penguins per year (2007, 2008, 2009)
+
+-   Data Visualization
 
 -   What is the distribution of penguin flipper lengths?
 
@@ -464,6 +478,8 @@ penguins %>%
 :::
 
 
+These graphs were our first attempts at displaying the results of our research. We played with the colors, sizes, titles etc. The first graph is the most simple, with no color or x/y axis titles. With the second graph, we added bright colors to make it more visible and labeled the titles on our graph. The third graph is more detailed, different color choices are easier on the eyes, and we included the mean and median using dotted lines.
+
 Let's make a scatter plot to see if bill length is correlated with bill depth.
 
 
@@ -499,3 +515,6 @@ Warning in max(ids, na.rm = TRUE): no non-missing arguments to max; returning
 ![](PalmerPenguinsAnalysis_files/figure-html/unnamed-chunk-13-1.png){width=672}
 :::
 :::
+
+
+This beautiful scatter plot is the first attempt at a scatter plot using RStudio. It displays both the bill length and bill depth along with a line of best fit.

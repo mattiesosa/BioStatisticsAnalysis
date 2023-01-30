@@ -288,6 +288,8 @@ dbl (5): bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, year
 
 </div>
 </div>
+<p>The first graph is showing the number of penguins that inhabit each island. Clearly, the data is not accurate because it is showing that there are only 3 penguins in Dream and 36 penguins in Biscoe.</p>
+<p>The second graph goes a step further than the first and shows the number of penguins in each species on each of the islands. We have such little data that the graphs do not seem entirely accurate.</p>
 </section>
 <section id="answering-our-questions" class="level2">
 <h2 class="anchored" data-anchor-id="answering-our-questions">Answering Our Questions</h2>
@@ -323,6 +325,7 @@ dbl (5): bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, year
 3 Gentoo                  218.</code></pre>
 </div>
 </div>
+<p>This graph displays the average flipper length for each species (in mm). There is a 30mm difference between the longest and shortest average flipper length among the species.</p>
 <p>How many of each species do we have?</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">%&gt;%</span></span>
@@ -335,6 +338,7 @@ dbl (5): bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, year
 2 male      24</code></pre>
 </div>
 </div>
+<p>This graph shows the number of males and females among the penguins (the number of males+females equals the same number when the number of different species among the islands are counted).</p>
 <p>We can use <code>mutate()</code> to add new columns to our data set.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">#To make a permanent change, we need to store the results of our manipulations</span></span>
@@ -374,6 +378,8 @@ dbl (5): bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, year
 6 standard_deviation_bill_length  4.93</code></pre>
 </div>
 </div>
+<p>The first graph shows our results from computing the mean and median for average bill length among the penguins.</p>
+<p>The second graph gave the values for the mean bill length, min bill length, median bill length, third quartile bill length and standard deviation.</p>
 <p>Average body mass per year</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">%&gt;%</span></span>
@@ -388,10 +394,9 @@ dbl (5): bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, year
 3  2009          4518.</code></pre>
 </div>
 </div>
-</section>
-<section id="data-visualization" class="level2">
-<h2 class="anchored" data-anchor-id="data-visualization">Data Visualization</h2>
+<p>This graph displays the mean body mass for penguins per year (2007, 2008, 2009)</p>
 <ul>
+<li><p>Data Visualization</p></li>
 <li><p>What is the distribution of penguin flipper lengths?</p></li>
 <li><p>What is the distribution of penguin species?</p></li>
 <li><p>Does the distribution of flipper length depend on the species of penguin?</p></li>
@@ -447,6 +452,7 @@ dbl (5): bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, year
 <p><img src="PalmerPenguinsAnalysis_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+<p>These graphs were our first attempts at displaying the results of our research. We played with the colors, sizes, titles etc. The first graph is the most simple, with no color or x/y axis titles. With the second graph, we added bright colors to make it more visible and labeled the titles on our graph. The third graph is more detailed, different color choices are easier on the eyes, and we included the mean and median using dotted lines.</p>
 <p>Let’s make a scatter plot to see if bill length is correlated with bill depth.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>penguins <span class="sc">%&gt;%</span></span>
@@ -467,6 +473,7 @@ dbl (5): bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, year
 <p><img src="PalmerPenguinsAnalysis_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+<p>This beautiful scatter plot is the first attempt at a scatter plot using RStudio. It displays both the bill length and bill depth along with a line of best fit.</p>
 </section>
 </section>
 
