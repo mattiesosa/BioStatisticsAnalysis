@@ -30,7 +30,7 @@ test_data <- testing(colony_splits)
 
 This is an analysis of the Bee Colony data set. The bee colony data set provides information on honey bee colonies across the United States with regards to the number of colonies, maximum, lost, percent lost, added, renovated, and percent renovated. In this technical report I aim to answer the following questions: during which months did we lose the most bee colonies? During which years did we lose the most bee colonies? Is there a state that seems superior to the others in terms of honey bee colony size? Is there a state that seems to lose more honey bee colonies than others?
 
-This data set spans several years during which the number of bee colony losses per state were observed and recorded. Using RStudio we were able to create box plots, allowing for better visualization and analysis of the data when focusing on correlation between months/year or state and bee colony losses observed. Using RStudio I was able to deduce from the graphs and tables created that the most bee colonies were lost during October-December. .......................
+This data set spans several years during which the number of bee colony losses per state were observed and recorded. Using RStudio we were able to create box plots, allowing for better visualization and analysis of the data when focusing on correlation between months/year or state and bee colony losses observed. Using RStudio I was able to deduce from the graphs and tables created that the most bee colonies were lost during October-December.
 
 ## Interesting Questions
 
@@ -62,18 +62,6 @@ training_data %>%
 This report provides information on honey bee colonies in the US regarding the number of colonies, maximum, lost, percent lost, added, renovated, and percent renovated. Colony loss rates are calculated as the ratio of the number of colonies lost to the number of colonies managed over a defined period. Colony loss rates are best interpreted as a turn-over rate, as high levels of losses do not necessarily result in a decrease in the total number of colonies managed in the United States. I hypothesized that the most bee colonies were lost October-December and the least number of bee colonies were lost April-June. It was also hypothesized that the most bee colonies were lost during 2015 and the least bee colonies were lost during 2017, when focusing on year.
 
 ## Exploratory Data
-
-Format:
-
--   Here's what I am about to do...
-
--   Here's why...
-
--   Here's the thing I did (the picture)
-
--   Here's what we are seeing (or not seeing)
-
--   Here's what I'll do next...repeat...'
 
 I decided to only use data pertaining to the state of Florida, so I could get a general idea of the average values for bee colonies in this state. I chose Florida because while skimming the data it looked like it was higher (numerically) when comparing it to the other states. Once I was able to isolate the data from the state of Florida, it became obvious that the average percent of colonies lost (14%) was greater than the original average percent of colonies lost (11%) when creating our exploratory data.
 
@@ -137,4 +125,4 @@ This graph shows the correlation between the amount of honey bee colonies lost a
 
 ## Conclusion
 
-Using RStudio I was able to answer my original questions regarding the Honey Bee Colony Data Set. For starters, it was concluded that the most bee colonies were lost during October-December. However, RStudio gave us the top four periods of time (months) that lost the most bee colonies and all were suspiciously close numerically. More data should be acquired on the possible (human) error that occurred while collecting this data set to . Second,
+Using RStudio I was able to answer my original questions regarding the Honey Bee Colony Data Set. For starters, it was concluded that the most bee colonies were lost during October-December. However, RStudio gave us the top four periods of time (months) that lost the most bee colonies and all were suspiciously close numerically. More data should be acquired on the possible (human) error that occurred while collecting this data set. Second, by creating a plot graph, we were able to deduce that there is a correlation between the amount of honey bee colonies added and the amount of colony lost. Once the line of best fit was added, it was clear that more graphs would help us better understand what we were seeing (a grouping of low numerical values and then some higher numerical values that strayed much further from the line of best fit). This report was an initial attempt to understand how RStudio works and its ability to organize biological data. Moving forward, more data pertaining to our primary questions should be gathered and more detailed graphs created.
