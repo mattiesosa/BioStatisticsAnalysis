@@ -28,7 +28,9 @@ test_data <- testing(colony_splits)
 
 ## Abstract
 
-This is an analysis of the Bee Colony data set. The bee colony data set provides information on honey bee colonies across the United States with regards to the number of colonies, maximum, lost, percent lost, added, renovated, and percent renovated. In this technical report I aim to answer the following questions...... This data set spans several years during which the number of bee colony losses per state were observed and recorded. Using RStudio we were able to create box plots, allowing for better visualization and analysis of the data when focusing on correlation between months/year or state and bee colony losses observed. Consider adding answers to your questions...
+This is an analysis of the Bee Colony data set. The bee colony data set provides information on honey bee colonies across the United States with regards to the number of colonies, maximum, lost, percent lost, added, renovated, and percent renovated. In this technical report I aim to answer the following questions: during which months did we lose the most bee colonies? During which years did we lose the most bee colonies? Is there a state that seems superior to the others in terms of honey bee colony size? Is there a state that seems to lose more honey bee colonies than others?
+
+This data set spans several years during which the number of bee colony losses per state were observed and recorded. Using RStudio we were able to create box plots, allowing for better visualization and analysis of the data when focusing on correlation between months/year or state and bee colony losses observed. Using RStudio I was able to deduce from the graphs and tables created that the most bee colonies were lost during October-December. .......................
 
 ## Interesting Questions
 
@@ -71,9 +73,9 @@ Format:
 
 -   Here's what we are seeing (or not seeing)
 
--   Here's what I'll do next...repeat...
+-   Here's what I'll do next...repeat...'
 
-...Moved table here...
+I decided to only use data pertaining to the state of Florida, so I could get a general idea of the average values for bee colonies in this state. I chose Florida because while skimming the data it looked like it was higher (numerically) when comparing it to the other states. Once I was able to isolate the data from the state of Florida, it became obvious that the average percent of colonies lost (14%) was greater than the original average percent of colonies lost (11%) when creating our exploratory data.
 
 ```{r}
 training_data %>%
@@ -81,9 +83,9 @@ training_data %>%
   skim()
 ```
 
-This table allows me to look at data specific to the state of Florida. This table tells me that Florida has a mean value of 13% for percent of average colony lost. This is a slight increase from the first table created at the beginning of the report, which gave a value of 11% for the average percent of honey bee colonies lost. Seeing how both values are precise makes me more confident of this data.
+This table allows me to look at data specific to the state of Florida. This table tells me that Florida has a mean value of 14% for percent of average colony lost. This is a slight increase from the first table created at the beginning of the report, which gave a value of 11% for the average percent of honey bee colonies lost. Seeing how both values are precise makes me more confident of this data.
 
-...Original start...
+Next, I decided to look during which months the greatest number of honey bee colonies were lost to see if there was a possible correlation between the time of year (months) and amount of colony lost. I originally used a bar graph to display this data, but quickly discovered a box plot would do a much better job of displaying the data, which I then created immediately following this graph.
 
 ```{r}
 
@@ -95,7 +97,9 @@ training_data %>%
 
 ```
 
-This graph made me realize that a bar graph was not the best format to use when displaying my data. Although the data could be organized in a better way, this graph told me that the most bee colonies were lost: April-June, January-March, July-September, and October-December. The most bee colonies were lost October-December.
+This graph made me realize that a bar graph was not the best format to use when displaying my data. Although the data could be organized in a better way, this graph told me that the most (top 4) bee colonies were lost: April-June, January-March, July-September, and October-December. If we were actually to look closer, however, we see that the most bee colonies were lost October-December.
+
+I decided to create a box plot with my months and colony lost data once again to create a graph that would hopefully allow me to understand the results better. Looking at the graph we see that that data is organized in a much more visually pleasing manner that allows for better analysis. Similar to the bar graph, this graph shows the top four time periods where the greatest number of bee colonies were lost.
 
 ```{r}
 
@@ -107,6 +111,8 @@ training_data %>%
 
 This graph, especially when the scale_y\_log10() was added to the code, displayed the data in a more visually appealing way. Not only were we able to look at the box-plot and see that the most bee colonies were lost October-December, but we also learned that the amount of bee colonies lost were very numerically close between the different months of time. This makes me a little wary of the data because it makes me question how accurate the data is, I would have assumed there to be a more drastic difference between the months (more specifically Winter and Spring/Fall/Summer).
 
+Next I went ahead and created another box plot, but this time focusing on the year and colony lost. I wanted to see if there was a correlation between the year and colony lost. I also wanted to see if it was there were any similarities between months and colony lost and years and colony lost. The first graph was not successful in that it only plotted the data for the year 2018 so I was really unable to gather much information from this box-plot.
+
 ```{r}
 training_data %>%
   ggplot() +
@@ -114,7 +120,9 @@ training_data %>%
   
 ```
 
-This box-plot was my first attempt at looking at the (possible) correlation between amount of bee colonies lost and the year. I was curious to see if there was a year were honey bees were more greatly affected. Unfortunately, this graph is only recognizing the year 2018.
+This box-plot was my first attempt at looking at the (possible) correlation between the amount of honey bee colonies lost and the year. I was curious to see if there was a year where honey bees were more greatly affected. Unfortunately, this graph is only recognizing the year 2018.
+
+After going back and looking over my data I decided to try and make a plot graph to better display my data, but this time I was going to focus on colony lost and colony added. I decided to focus on a different aspect within my data because I had not been so successful focusing on time (months/years) and colony lost. Below you can see that the graph actually ended up coming out really nicely and was a lot easier visually to digest.
 
 ```{r}
 training_data %>%
@@ -125,8 +133,8 @@ training_data %>%
 
 ```
 
-This graph shows the correlation between the amount of honey bee colonies lost and amount of honey bees added. A line of best fit was added to better analyze and understand the data. Looking at the line of best fit we see that the lower numbers appear more accurate compared to higher data sets where there are more outliers present.
-
-
+This graph shows the correlation between the amount of honey bee colonies lost and amount of honey bees colonies added. A line of best fit was created to better analyze and understand the data. Looking at the line of best fit we see that the lower numbers appear more accurate compared to the higher data sets where there are far less data points and more outliers present.
 
 ## Conclusion
+
+Using RStudio I was able to answer my original questions regarding the Honey Bee Colony Data Set. For starters, it was concluded that the most bee colonies were lost during October-December. However, RStudio gave us the top four periods of time (months) that lost the most bee colonies and all were suspiciously close numerically. More data should be acquired on the possible (human) error that occurred while collecting this data set to . Second,
