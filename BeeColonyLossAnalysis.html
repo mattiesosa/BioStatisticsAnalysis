@@ -151,14 +151,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ✖ dplyr::lag()      masks stats::lag()
 ✖ yardstick::spec() masks readr::spec()
 ✖ recipes::step()   masks stats::step()
-• Search for functions across packages at https://www.tidymodels.org/find/</code></pre>
+• Use suppressPackageStartupMessages() to eliminate package startup messages</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(skimr)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>colony <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">'https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-01-11/colony.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>colony <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">'https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-01-11/colony.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Rows: 1222 Columns: 10
 ── Column specification ────────────────────────────────────────────────────────
@@ -169,12 +167,27 @@ dbl (8): year, colony_n, colony_max, colony_lost, colony_lost_pct, colony_ad...
 ℹ Use `spec()` to retrieve the full column specification for this data.
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>colony <span class="sc">%&gt;%</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 10
+   year months     state colon…¹ colon…² colon…³ colon…⁴ colon…⁵ colon…⁶ colon…⁷
+  &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+1  2015 January-M… Alab…    7000    7000    1800      26    2800     250       4
+2  2015 January-M… Ariz…   35000   35000    4600      13    3400    2100       6
+3  2015 January-M… Arka…   13000   14000    1500      11    1200      90       1
+4  2015 January-M… Cali… 1440000 1690000  255000      15  250000  124000       7
+5  2015 January-M… Colo…    3500   12500    1500      12     200     140       1
+6  2015 January-M… Conn…    3900    3900     870      22     290      NA      NA
+# … with abbreviated variable names ¹​colony_n, ²​colony_max, ³​colony_lost,
+#   ⁴​colony_lost_pct, ⁵​colony_added, ⁶​colony_reno, ⁷​colony_reno_pct</code></pre>
+</div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>colony_splits <span class="ot">&lt;-</span> <span class="fu">initial_split</span>(colony, <span class="at">prop =</span> <span class="fl">0.5</span>)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>training_data <span class="ot">&lt;-</span> <span class="fu">training</span>(colony_splits)</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>test_data <span class="ot">&lt;-</span> <span class="fu">testing</span>(colony_splits)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>colony_splits <span class="ot">&lt;-</span> <span class="fu">initial_split</span>(colony, <span class="at">prop =</span> <span class="fl">0.5</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>training_data <span class="ot">&lt;-</span> <span class="fu">training</span>(colony_splits)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>test_data <span class="ot">&lt;-</span> <span class="fu">testing</span>(colony_splits)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="bee-colony-loss-analysis" class="level1">
 <h1>Bee Colony Loss Analysis</h1>
@@ -201,8 +214,8 @@ dbl (8): year, colony_n, colony_max, colony_lost, colony_lost_pct, colony_ad...
 <li><p>I hypothesize that Florida lost the most bee colonies during the years this data was collected.</p></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>training_data <span class="sc">%&gt;%</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">skim</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>training_data <span class="sc">%&gt;%</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">skim</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="table table-sm table-striped">
 <caption>Data summary</caption>
@@ -301,8 +314,8 @@ dbl (8): year, colony_n, colony_max, colony_lost, colony_lost_pct, colony_ad...
 <col style="width: 10%">
 <col style="width: 10%">
 <col style="width: 5%">
-<col style="width: 7%">
 <col style="width: 8%">
+<col style="width: 6%">
 <col style="width: 6%">
 <col style="width: 8%">
 <col style="width: 6%">
@@ -327,105 +340,105 @@ dbl (8): year, colony_n, colony_max, colony_lost, colony_lost_pct, colony_ad...
 <td style="text-align: left;">year</td>
 <td style="text-align: right;">0</td>
 <td style="text-align: right;">1.00</td>
-<td style="text-align: right;">2017.83</td>
-<td style="text-align: right;">1.88</td>
+<td style="text-align: right;">2017.81</td>
+<td style="text-align: right;">1.81</td>
 <td style="text-align: right;">2015</td>
-<td style="text-align: right;">2016.0</td>
-<td style="text-align: right;">2018.0</td>
+<td style="text-align: right;">2016.00</td>
+<td style="text-align: right;">2018</td>
 <td style="text-align: right;">2019</td>
 <td style="text-align: right;">2021</td>
-<td style="text-align: left;">▇▅▃▅▆</td>
+<td style="text-align: left;">▇▅▅▅▆</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">colony_n</td>
-<td style="text-align: right;">25</td>
+<td style="text-align: right;">27</td>
 <td style="text-align: right;">0.96</td>
-<td style="text-align: right;">107708.41</td>
-<td style="text-align: right;">375085.87</td>
+<td style="text-align: right;">110319.64</td>
+<td style="text-align: right;">400326.11</td>
 <td style="text-align: right;">1300</td>
-<td style="text-align: right;">7842.5</td>
-<td style="text-align: right;">17750.0</td>
-<td style="text-align: right;">58750</td>
-<td style="text-align: right;">3175960</td>
+<td style="text-align: right;">8000.00</td>
+<td style="text-align: right;">17000</td>
+<td style="text-align: right;">53000</td>
+<td style="text-align: right;">3181180</td>
 <td style="text-align: left;">▇▁▁▁▁</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">colony_max</td>
-<td style="text-align: right;">34</td>
+<td style="text-align: right;">37</td>
 <td style="text-align: right;">0.94</td>
-<td style="text-align: right;">81872.62</td>
-<td style="text-align: right;">187051.85</td>
+<td style="text-align: right;">75456.31</td>
+<td style="text-align: right;">168999.94</td>
 <td style="text-align: right;">1700</td>
-<td style="text-align: right;">8500.0</td>
-<td style="text-align: right;">21000.0</td>
-<td style="text-align: right;">75000</td>
-<td style="text-align: right;">1580000</td>
+<td style="text-align: right;">9000.00</td>
+<td style="text-align: right;">21000</td>
+<td style="text-align: right;">65000</td>
+<td style="text-align: right;">1400000</td>
 <td style="text-align: left;">▇▁▁▁▁</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">colony_lost</td>
-<td style="text-align: right;">25</td>
+<td style="text-align: right;">27</td>
 <td style="text-align: right;">0.96</td>
-<td style="text-align: right;">14068.40</td>
-<td style="text-align: right;">51147.27</td>
-<td style="text-align: right;">40</td>
-<td style="text-align: right;">942.5</td>
-<td style="text-align: right;">2200.0</td>
-<td style="text-align: right;">7000</td>
-<td style="text-align: right;">502350</td>
+<td style="text-align: right;">14750.45</td>
+<td style="text-align: right;">54305.79</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">930.00</td>
+<td style="text-align: right;">2100</td>
+<td style="text-align: right;">6500</td>
+<td style="text-align: right;">500020</td>
 <td style="text-align: left;">▇▁▁▁▁</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">colony_lost_pct</td>
-<td style="text-align: right;">28</td>
+<td style="text-align: right;">31</td>
 <td style="text-align: right;">0.95</td>
-<td style="text-align: right;">11.46</td>
-<td style="text-align: right;">7.57</td>
+<td style="text-align: right;">11.35</td>
+<td style="text-align: right;">7.15</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">6.0</td>
-<td style="text-align: right;">10.0</td>
-<td style="text-align: right;">14</td>
-<td style="text-align: right;">48</td>
-<td style="text-align: left;">▇▆▂▁▁</td>
+<td style="text-align: right;">6.75</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">52</td>
+<td style="text-align: left;">▇▅▁▁▁</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">colony_added</td>
-<td style="text-align: right;">42</td>
+<td style="text-align: right;">45</td>
 <td style="text-align: right;">0.93</td>
-<td style="text-align: right;">15503.81</td>
-<td style="text-align: right;">61222.48</td>
+<td style="text-align: right;">15586.61</td>
+<td style="text-align: right;">62574.11</td>
 <td style="text-align: right;">10</td>
-<td style="text-align: right;">370.0</td>
-<td style="text-align: right;">1800.0</td>
-<td style="text-align: right;">7000</td>
-<td style="text-align: right;">725650</td>
+<td style="text-align: right;">402.50</td>
+<td style="text-align: right;">1900</td>
+<td style="text-align: right;">6000</td>
+<td style="text-align: right;">736920</td>
 <td style="text-align: left;">▇▁▁▁▁</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">colony_reno</td>
-<td style="text-align: right;">65</td>
+<td style="text-align: right;">70</td>
 <td style="text-align: right;">0.89</td>
-<td style="text-align: right;">14074.80</td>
-<td style="text-align: right;">53471.91</td>
+<td style="text-align: right;">13940.24</td>
+<td style="text-align: right;">56907.24</td>
 <td style="text-align: right;">10</td>
-<td style="text-align: right;">270.0</td>
-<td style="text-align: right;">1100.0</td>
-<td style="text-align: right;">4775</td>
-<td style="text-align: right;">715110</td>
+<td style="text-align: right;">270.00</td>
+<td style="text-align: right;">930</td>
+<td style="text-align: right;">4570</td>
+<td style="text-align: right;">692850</td>
 <td style="text-align: left;">▇▁▁▁▁</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">colony_reno_pct</td>
-<td style="text-align: right;">135</td>
-<td style="text-align: right;">0.78</td>
-<td style="text-align: right;">9.46</td>
-<td style="text-align: right;">9.36</td>
+<td style="text-align: right;">130</td>
+<td style="text-align: right;">0.79</td>
+<td style="text-align: right;">9.33</td>
+<td style="text-align: right;">10.57</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">3.0</td>
-<td style="text-align: right;">6.5</td>
+<td style="text-align: right;">3.00</td>
+<td style="text-align: right;">6</td>
 <td style="text-align: right;">13</td>
-<td style="text-align: right;">65</td>
-<td style="text-align: left;">▇▂▁▁▁</td>
+<td style="text-align: right;">77</td>
+<td style="text-align: left;">▇▁▁▁▁</td>
 </tr>
 </tbody>
 </table>
@@ -440,9 +453,9 @@ dbl (8): year, colony_n, colony_max, colony_lost, colony_lost_pct, colony_ad...
 <h2 class="anchored" data-anchor-id="exploratory-data">Exploratory Data</h2>
 <p>I decided to only use data pertaining to the state of Florida, so I could get a general idea of the average values for bee colonies in this state. I chose Florida because while skimming the data it looked like it was higher (numerically) when comparing it to the other states. Once I was able to isolate the data from the state of Florida, it became obvious that the average percent of colonies lost (14%) was greater than the original average percent of colonies lost (11%) when creating our exploratory data.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>training_data <span class="sc">%&gt;%</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(state <span class="sc">==</span> <span class="st">"Florida"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">skim</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>training_data <span class="sc">%&gt;%</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(state <span class="sc">==</span> <span class="st">"Florida"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">skim</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="table table-sm table-striped">
 <caption>Data summary</caption>
@@ -541,9 +554,9 @@ dbl (8): year, colony_n, colony_max, colony_lost, colony_lost_pct, colony_ad...
 <col style="width: 9%">
 <col style="width: 8%">
 <col style="width: 6%">
+<col style="width: 9%">
 <col style="width: 6%">
 <col style="width: 8%">
-<col style="width: 9%">
 <col style="width: 6%">
 <col style="width: 5%">
 </colgroup>
@@ -566,106 +579,106 @@ dbl (8): year, colony_n, colony_max, colony_lost, colony_lost_pct, colony_ad...
 <tr class="odd">
 <td style="text-align: left;">year</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">2017.81</td>
-<td style="text-align: right;">2.01</td>
+<td style="text-align: right;">1.00</td>
+<td style="text-align: right;">2017.69</td>
+<td style="text-align: right;">1.78</td>
 <td style="text-align: right;">2015</td>
-<td style="text-align: right;">2016</td>
-<td style="text-align: right;">2018.0</td>
-<td style="text-align: right;">2020.00</td>
-<td style="text-align: right;">2021</td>
-<td style="text-align: left;">▇▁▃▁▇</td>
+<td style="text-align: right;">2016.75</td>
+<td style="text-align: right;">2018</td>
+<td style="text-align: right;">2019.0</td>
+<td style="text-align: right;">2020</td>
+<td style="text-align: left;">▇▆▆▆▆</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">colony_n</td>
-<td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">246125.00</td>
-<td style="text-align: right;">43104.33</td>
+<td style="text-align: right;">0.94</td>
+<td style="text-align: right;">238200.00</td>
+<td style="text-align: right;">41658.82</td>
 <td style="text-align: right;">176000</td>
-<td style="text-align: right;">217500</td>
-<td style="text-align: right;">240000.0</td>
-<td style="text-align: right;">276250.00</td>
-<td style="text-align: right;">325000</td>
-<td style="text-align: left;">▅▅▇▃▅</td>
+<td style="text-align: right;">210000.00</td>
+<td style="text-align: right;">240000</td>
+<td style="text-align: right;">265000.0</td>
+<td style="text-align: right;">305000</td>
+<td style="text-align: left;">▆▇▆▃▆</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">colony_max</td>
-<td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">266562.50</td>
-<td style="text-align: right;">41461.58</td>
+<td style="text-align: right;">0.94</td>
+<td style="text-align: right;">258666.67</td>
+<td style="text-align: right;">39300.43</td>
 <td style="text-align: right;">180000</td>
-<td style="text-align: right;">237500</td>
-<td style="text-align: right;">272500.0</td>
-<td style="text-align: right;">300000.00</td>
-<td style="text-align: right;">325000</td>
-<td style="text-align: left;">▂▅▆▅▇</td>
+<td style="text-align: right;">235000.00</td>
+<td style="text-align: right;">260000</td>
+<td style="text-align: right;">285000.0</td>
+<td style="text-align: right;">315000</td>
+<td style="text-align: left;">▂▆▇▆▇</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">colony_lost</td>
-<td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">34937.50</td>
-<td style="text-align: right;">7920.17</td>
+<td style="text-align: right;">0.94</td>
+<td style="text-align: right;">36333.33</td>
+<td style="text-align: right;">8574.60</td>
 <td style="text-align: right;">20000</td>
-<td style="text-align: right;">29000</td>
-<td style="text-align: right;">35000.0</td>
-<td style="text-align: right;">41250.00</td>
-<td style="text-align: right;">48000</td>
-<td style="text-align: left;">▃▇▂▇▅</td>
+<td style="text-align: right;">30000.00</td>
+<td style="text-align: right;">35000</td>
+<td style="text-align: right;">43500.0</td>
+<td style="text-align: right;">50000</td>
+<td style="text-align: left;">▂▇▅▃▆</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">colony_lost_pct</td>
-<td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">13.31</td>
-<td style="text-align: right;">3.38</td>
+<td style="text-align: right;">0.94</td>
+<td style="text-align: right;">14.33</td>
+<td style="text-align: right;">3.90</td>
 <td style="text-align: right;">8</td>
-<td style="text-align: right;">11</td>
-<td style="text-align: right;">13.0</td>
-<td style="text-align: right;">14.25</td>
+<td style="text-align: right;">12.00</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">16.5</td>
 <td style="text-align: right;">22</td>
-<td style="text-align: left;">▃▇▅▂▁</td>
+<td style="text-align: left;">▅▅▇▃▃</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">colony_added</td>
-<td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">44750.00</td>
-<td style="text-align: right;">9567.31</td>
+<td style="text-align: right;">0.94</td>
+<td style="text-align: right;">47733.33</td>
+<td style="text-align: right;">12144.76</td>
 <td style="text-align: right;">30000</td>
-<td style="text-align: right;">36000</td>
-<td style="text-align: right;">44500.0</td>
-<td style="text-align: right;">53000.00</td>
-<td style="text-align: right;">62000</td>
-<td style="text-align: left;">▇▂▂▇▁</td>
+<td style="text-align: right;">40000.00</td>
+<td style="text-align: right;">46000</td>
+<td style="text-align: right;">54000.0</td>
+<td style="text-align: right;">80000</td>
+<td style="text-align: left;">▆▇▇▁▂</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">colony_reno</td>
-<td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">27062.50</td>
-<td style="text-align: right;">14723.99</td>
+<td style="text-align: right;">0.94</td>
+<td style="text-align: right;">30633.33</td>
+<td style="text-align: right;">14386.83</td>
 <td style="text-align: right;">8000</td>
-<td style="text-align: right;">18250</td>
-<td style="text-align: right;">24000.0</td>
-<td style="text-align: right;">31500.00</td>
+<td style="text-align: right;">21250.00</td>
+<td style="text-align: right;">31000</td>
+<td style="text-align: right;">37000.0</td>
 <td style="text-align: right;">69000</td>
-<td style="text-align: left;">▇▇▃▁▁</td>
+<td style="text-align: left;">▅▅▇▁▁</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">colony_reno_pct</td>
-<td style="text-align: right;">0</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">10.75</td>
-<td style="text-align: right;">6.41</td>
+<td style="text-align: right;">0.94</td>
+<td style="text-align: right;">12.40</td>
+<td style="text-align: right;">6.30</td>
 <td style="text-align: right;">3</td>
-<td style="text-align: right;">7</td>
-<td style="text-align: right;">8.5</td>
-<td style="text-align: right;">13.25</td>
+<td style="text-align: right;">7.50</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">15.0</td>
 <td style="text-align: right;">25</td>
-<td style="text-align: left;">▇▅▂▁▂</td>
+<td style="text-align: left;">▆▅▇▂▃</td>
 </tr>
 </tbody>
 </table>
@@ -674,12 +687,12 @@ dbl (8): year, colony_n, colony_max, colony_lost, colony_lost_pct, colony_ad...
 <p>This table allows me to look at data specific to the state of Florida. This table tells me that Florida has a mean value of 14% for percent of average colony lost. This is a slight increase from the first table created at the beginning of the report, which gave a value of 11% for the average percent of honey bee colonies lost. Seeing how both values are precise makes me more confident of this data.</p>
 <p>Next, I decided to look during which months the greatest number of honey bee colonies were lost to see if there was a possible correlation between the time of year (months) and amount of colony lost. I originally used a bar graph to display this data, but quickly discovered a box plot would do a much better job of displaying the data, which I then created immediately following this graph.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>training_data <span class="sc">%&gt;%</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x=</span>months, <span class="at">y=</span> colony_lost),</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">stat=</span><span class="st">"identity"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>training_data <span class="sc">%&gt;%</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x=</span>months, <span class="at">y=</span> colony_lost),</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">stat=</span><span class="st">"identity"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 25 rows containing missing values (`position_stack()`).</code></pre>
+<pre><code>Warning: Removed 27 rows containing missing values (`position_stack()`).</code></pre>
 </div>
 <div class="cell-output-display">
 <p><img src="BeeColonyLossAnalysis_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
@@ -688,12 +701,12 @@ dbl (8): year, colony_n, colony_max, colony_lost, colony_lost_pct, colony_ad...
 <p>This graph made me realize that a bar graph was not the best format to use when displaying my data. Although the data could be organized in a better way, this graph told me that the most (top 4) bee colonies were lost: April-June, January-March, July-September, and October-December. If we were actually to look closer, however, we see that the most bee colonies were lost October-December.</p>
 <p>I decided to create a box plot with my months and colony lost data once again to create a graph that would hopefully allow me to understand the results better. Looking at the graph we see that that data is organized in a much more visually pleasing manner that allows for better analysis. Similar to the bar graph, this graph shows the top four time periods where the greatest number of bee colonies were lost.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>training_data <span class="sc">%&gt;%</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>months, <span class="at">y=</span> colony_lost)) <span class="sc">+</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_log10</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>training_data <span class="sc">%&gt;%</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>months, <span class="at">y=</span> colony_lost)) <span class="sc">+</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_log10</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 25 rows containing non-finite values (`stat_boxplot()`).</code></pre>
+<pre><code>Warning: Removed 27 rows containing non-finite values (`stat_boxplot()`).</code></pre>
 </div>
 <div class="cell-output-display">
 <p><img src="BeeColonyLossAnalysis_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
@@ -702,15 +715,15 @@ dbl (8): year, colony_n, colony_max, colony_lost, colony_lost_pct, colony_ad...
 <p>This graph, especially when the scale_y_log10() was added to the code, displayed the data in a more visually appealing way. Not only were we able to look at the box-plot and see that the most bee colonies were lost October-December, but we also learned that the amount of bee colonies lost were very numerically close between the different months of time. This makes me a little wary of the data because it makes me question how accurate the data is, I would have assumed there to be a more drastic difference between the months (more specifically Winter and Spring/Fall/Summer).</p>
 <p>Next I went ahead and created another box plot, but this time focusing on the year and colony lost. I wanted to see if there was a correlation between the year and colony lost. I also wanted to see if it was there were any similarities between months and colony lost and years and colony lost. The first graph was not successful in that it only plotted the data for the year 2018 so I was really unable to gather much information from this box-plot.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>training_data <span class="sc">%&gt;%</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>colony_lost, <span class="at">y=</span> year)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>training_data <span class="sc">%&gt;%</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>colony_lost, <span class="at">y=</span> year)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: Continuous x aesthetic
 ℹ did you forget `aes(group = ...)`?</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 25 rows containing missing values (`stat_boxplot()`).</code></pre>
+<pre><code>Warning: Removed 27 rows containing missing values (`stat_boxplot()`).</code></pre>
 </div>
 <div class="cell-output-display">
 <p><img src="BeeColonyLossAnalysis_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
@@ -719,19 +732,19 @@ dbl (8): year, colony_n, colony_max, colony_lost, colony_lost_pct, colony_ad...
 <p>This box-plot was my first attempt at looking at the (possible) correlation between the amount of honey bee colonies lost and the year. I was curious to see if there was a year where honey bees were more greatly affected. Unfortunately, this graph is only recognizing the year 2018.</p>
 <p>After going back and looking over my data I decided to try and make a plot graph to better display my data, but this time I was going to focus on colony lost and colony added. I decided to focus on a different aspect within my data because I had not been so successful focusing on time (months/years) and colony lost. Below you can see that the graph actually ended up coming out really nicely and was a lot easier visually to digest.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>training_data <span class="sc">%&gt;%</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x=</span>colony_lost, <span class="at">y=</span>colony_added)) <span class="sc">+</span></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">x=</span>colony_lost, <span class="at">y=</span>colony_added),</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">method=</span><span class="st">"lm"</span>, <span class="at">se=</span> <span class="cn">FALSE</span>, <span class="at">color=</span><span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>training_data <span class="sc">%&gt;%</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x=</span>colony_lost, <span class="at">y=</span>colony_added)) <span class="sc">+</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">x=</span>colony_lost, <span class="at">y=</span>colony_added),</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">method=</span><span class="st">"lm"</span>, <span class="at">se=</span> <span class="cn">FALSE</span>, <span class="at">color=</span><span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 42 rows containing non-finite values (`stat_smooth()`).</code></pre>
+<pre><code>Warning: Removed 45 rows containing non-finite values (`stat_smooth()`).</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 42 rows containing missing values (`geom_point()`).</code></pre>
+<pre><code>Warning: Removed 45 rows containing missing values (`geom_point()`).</code></pre>
 </div>
 <div class="cell-output-display">
 <p><img src="BeeColonyLossAnalysis_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>

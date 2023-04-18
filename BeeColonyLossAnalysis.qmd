@@ -11,9 +11,10 @@ library(tidymodels)
 library(skimr)
 
 
-
-
 colony <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-01-11/colony.csv')
+
+colony %>%
+  head()
 
 ```
 
