@@ -1,0 +1,91 @@
+---
+title: "VolcanoEruptionsAnalysis"
+author: "Mattie Soghikian"
+format: html
+editor: visual
+---
+
+```{r}
+#Load the tidyverse
+library(tidyverse)
+library(kableExtra)
+#install.packages("tidymodels")
+library(tidymodels)
+#install.packages("skimr")
+library(skimr)
+install.packages("tidytuesdayR")
+
+
+library(skimr)
+volcano %>%
+  skim()
+
+volcano %>%
+  head() %>%
+  kable() %>%
+  kable_styling(c("hover", "striped"))
+
+
+# Get the Data
+
+volcano <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-05-12/volcano.csv')
+eruptions <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-05-12/eruptions.csv')
+events <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-05-12/events.csv')
+tree_rings <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-05-12/tree_rings.csv')
+sulfur <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-05-12/sulfur.csv')
+
+# Or read in with tidytuesdayR package (https://github.com/thebioengineer/tidytuesdayR)
+# PLEASE NOTE TO USE 2020 DATA YOU NEED TO USE tidytuesdayR version ? from GitHub
+
+# Either ISO-8601 date or year/week works!
+
+# Install via devtools::install_github("thebioengineer/tidytuesdayR")
+
+tuesdata <- tidytuesdayR::tt_load('2020-05-12')
+tuesdata <- tidytuesdayR::tt_load(2020, week = 20)
+
+
+volcano <- tuesdata$volcano
+
+```
+
+```{r}
+volcano_splits <- initial_split(volcano, prop = 0.5)
+
+training_data <- training(volcano_splits)
+test_data <- testing(volcano_splits)
+```
+
+# Volcano Eruptions Analysis
+
+### Abstract
+
+This is an analysis of the Volcano Eruptions data set. The Volcano Eruptions data set was brought to us by The Smithsonian Institution and contains all the volcanic eruptions that have occurred after the eruption of Krakatoa in 1883, sorted by elevation and type.
+
+## Interesting Questions
+
+-   Is there a certain time of the year when volcanoes seem more likely to erupt?
+
+-   Do we see a correlation between the location of the volcano and
+
+-   s
+
+-   s
+
+## Hypotheses
+
+-   s
+
+-   s
+
+-   s
+
+-   s
+
+## Introduction
+
+This report provides information on all of the volcanic eruptions that have occurred on earth since 1883 by elevation and type.
+
+## Exploratory Data
+
+## Conclusion
